@@ -13,18 +13,36 @@ export default function App() {
   const Tab = createBottomTabNavigator();
 
   return (
-    <SafeAreaProvider style={{ padding: 10, backgroundColor: '#102026', paddingTop: constants.statusBarHeight }}>
-      <View style={{ height: '100%', borderRadius: 40, overflow: 'hidden', borderTopEndRadius: 10, borderTopStartRadius: 10 }}>
-        <NavigationContainer
+    <SafeAreaProvider style={{ backgroundColor: '#102026', paddingTop: constants.statusBarHeight }}>
+      <StatusBar style="light" ></StatusBar>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={{
+            tabBarShowLabel: false,
+            headerShown: false,
+            tabBarStyle: {
+              marginBottom: 10,
+              backgroundColor: '#102026',
+              borderTopWidth: 0,
+            }
+          }}
         >
-          <Tab.Navigator
-            screenOptions={{ headerShown: false }}
-          >
-            <Tab.Screen name="IA assistant" component={Chat} />
-            <Tab.Screen name="Camera" component={Camera} />
-          </Tab.Navigator>
-        </NavigationContainer>
-      </View>
+          <Tab.Screen options={{
+            tabBarIcon: ({ focused }) => (
+              <View style={{opacity: focused? 1: 0.5}}>
+                <Text style={{color: focused? '#BF9B6F' : '#8195A6'}}>IA assistant</Text>
+              </View>
+            )
+          }} name="IA assistant" component={Chat} />
+          <Tab.Screen options={{
+            tabBarIcon: ({ focused }) => (
+              <View style={{opacity: focused? 1: 0.5}}>
+                <Text style={{color: focused? '#BF9B6F' : '#8195A6'}}>Camera</Text>
+              </View>
+            )
+          }} name="Camera" component={Camera} />
+        </Tab.Navigator>
+      </NavigationContainer>
     </SafeAreaProvider>
   );
 }
